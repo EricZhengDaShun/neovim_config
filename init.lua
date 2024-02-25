@@ -42,3 +42,5 @@ neotree.setup()
 telescope.setup()
 formatCode.setup()
 treesitter.setup()
+
+vim.keymap.set('n', '<leader>mt', '<Cmd>terminal ctags -R --exclude=build* --c++-kinds=+p<CR>')
