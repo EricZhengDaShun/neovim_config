@@ -71,8 +71,7 @@
 ## config
 1. clone neovim-config project
    ```
-   git clone https://github.com/EricZhengDaShun/neovim_config.git 
-   C:\Users\$USER_NAME\AppData\Local\nvim
+   git clone https://github.com/EricZhengDaShun/neovim_config.git C:\Users\$USER_NAME\AppData\Local\nvim
    ```
 2. Move clangd configuration files
    ```
