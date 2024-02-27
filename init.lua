@@ -1,7 +1,6 @@
 require('basic')
 
-local coc = require('coc')
-local masonPackages = require('masonPackages')
+local lspClangd = require('lspClangd')
 local whichKey = require('whichKey')
 local vscodeTheme = require('vscodeTheme')
 local neotree = require('neotree')
@@ -24,8 +23,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-    coc.package(),
-    masonPackages.package(),
+    lspClangd.package(),
     whichKey.package(),
     vscodeTheme.package(),
     neotree.package(),
@@ -34,8 +32,7 @@ require('lazy').setup({
     treesitter.package(),
 })
 
-coc.setup()
-masonPackages.setup()
+lspClangd.setup()
 whichKey.setup()
 vscodeTheme.setup()
 neotree.setup()
@@ -43,4 +40,3 @@ telescope.setup()
 formatCode.setup()
 treesitter.setup()
 
-vim.keymap.set('n', '<leader>mt', '<Cmd>terminal ctags -R --exclude=build* --c++-kinds=+p<CR>')
