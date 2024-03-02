@@ -5,8 +5,9 @@
   sudo apt update
   ```
   ```bash
-  sudo apt install -y build-essential curl git clang-format clangd ripgrep
+  sudo apt install -y build-essential curl git clang-format clangd ripgrep lldb python3.10-venv cmake tmux ninja-build
   ```
+   - install node.js
 
 1. Download Neovim
    ```bash
@@ -55,71 +56,70 @@
    :LspInstall clangd
    ```
 4. Install the font, taking `SauceCodeProNerdFont-Regular` as an example, and change the terminal font. (Otherwise some pictures will be garbled)
-### NvChad
-1. clone NvChad project
+
+### AstronVim
+1. Clone astronvim
    ```bash
-   git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim
+   git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim && nvim
    ```
-2.  make clangd setting file
-    ```bash
+2. Install tools
+   ```
+   :LspInstall clangd
+   ```
+   ```
+   :TSInstall cpp
+   ```
+   ```
+   :DapInstall codelldb
+   ```
+   ```
+   :TSInstall yaml
+   ```
+   ```
+   :TSInstall cmake
+   ```
+1. Set basic settings
+   ```bash
+   nvim ~/.config/nvim/lua/astronvim/options.lua
+   ```
+   ```lua
+   shiftwidth = 4
+   tabstop = 4
+   ```
+4. Set clangd settings 
+   ```bash
     mkdir -p ~/.config/clangd && nvim ~/.config/clangd/config.yaml
     ```
     ```yaml
     CompileFlags:
       Add: [-Wunused-variable]
     ```
-1.  Modify basic setting
-    ```bash
-    nvim ~/.config/nvim/lua/core/init.lua 
-    ```
-    ```lua
-    -- modify
-    opt.shiftwidth = 4
-    opt.tabstop = 4
-    opt.softtabstop = 4
-    -- add
-    opt.relativenumber = true
-    ```
-5. setup format function
+5. Set clang-format settings
    ```bash
-   nvim ~/.config/nvim/lua/custom/configs/conform.lua
+   nvim ~/.clang-format
+   ```
+   ```
+   BasedOnStyle: WebKit
+   ```
+6. Disable format on save
+   ```bash
+   nvim ~/.config/nvim/lua/astronvim/utils/lsp.lua
    ```
    ```lua
-   --type conform.options
-   local options = {
-       lsp_fallback = true,
+   format_on_save = { enabled = false }
+   ```
+7. Add neotree setting
+   ```bash
+   nvim ~/.config/nvim/lua/astronvim/mappings.lua
+   ```
+   ```lua
+   -- Custom Neotree
+   maps.n["<leader>mnf"] = { "<cmd> Neotree <cr>", desc = "Show neotree files"}
+   maps.n["<leader>mnb"] = { "<cmd> Neotree show buffers <cr>", desc = "Show neotree buffers"}
+   maps.n["<leader>mng"] = { "<cmd> Neotree show git_status <cr>", desc = "Show neotree git status"}
+   ```
 
-        formatters_by_ft = {
-            lua = { "stylua" },
-
-            javascript = { "prettier" },
-            css = { "prettier" },
-            html = { "prettier" },
-
-            sh = { "shfmt" },
-
-            cpp = { "clang_format" },
-     },
-
-       -- adding same formatter for multiple filetypes can look too much work for some
-      -- instead of the above code you could just use a loop! the config is just a table after all!
-   
-      -- format_on_save = {
-      -- These options will be passed to conform.format()
-      --    timeout_ms = 500,
-      --    lsp_fallback = true,
-      -- },
-      formatters = {
-        clang_format = {
-          command = "clang-format",
-          prepend_args = { "--style=WebKit" },
-        },
-      },
-      }
-
-      require("conform").setup(options)
-      ```
-5. Install the font, taking `SauceCodeProNerdFont-Regular` as an example, and change the terminal font. (Otherwise some pictures will be garbled)
+8. Install the font, taking `SauceCodeProNerdFont-Regular` as an example, and change the terminal font. (Otherwise some pictures will be garbled)
 
 ---
 
@@ -149,68 +149,53 @@
    :LspInstall clangd
    ```
 4. Install the font, taking `SauceCodeProNerdFont-Regular` as an example, and change the terminal font. (Otherwise some pictures will be garbled)
-### NvChad
-1. clone NvChad project
+
+###  AstronVim
+1. Clone astronvim
    ```bash
-   git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim
+   git clone --depth 1 https://github.com/AstroNvim/AstroNvim C:\Users\$USER_NAME\AppData\Local\nvim && nvim
    ```
-2.  make clangd setting file
-    ```
-    C:\Users\$USER_NAME\AppData\Local\clangd\config.yaml
+2. Install tools
+   ```
+   :LspInstall clangd
+   ```
+   ```
+   :TSInstall cpp
+   ```
+   ```
+   :TSInstall yaml
+   ```
+   ```
+   :TSInstall cmake
+   ```
+1. Set basic settings
+   ```
+   nvim C:\Users\$USER_NAME\AppData\Local\nvim\lua\astronvim\options.lua
+   ```
+   ```lua
+   shiftwidth = 4
+   tabstop = 4
+   ```
+4. Set clangd settings 
+   ```b
+    C:\Users\$USER_NAME\.config\clangd\config.yaml
     ```
     ```yaml
     CompileFlags:
       Add: [-Wunused-variable]
     ```
-3.  Modify basic setting
-    ```
-    C:\Users\$USER_NAME\AppData\Local\nvim\lua\core\init.lua 
-    ```
-    ```lua
-    -- modify
-    opt.shiftwidth = 4
-    opt.tabstop = 4
-    opt.softtabstop = 4
-    -- add
-    opt.relativenumber = true
-    ```
-4. setup format function
+5. Set clang-format settings
    ```
-   C:\Users\$USER_NAME\AppData\Local\nvim\lua\custom\configs\conform.lua
+   nvim $PROJECT_DIRCTORy\.clang-format
+   ```
+   ```
+   BasedOnStyle: WebKit
+   ```
+6. Disable format on save
+   ```
+   nvim C:\Users\$USER_NAME\AppData\Local\nvim\lua\astronvim\utils\lsp.lua
    ```
    ```lua
-   --type conform.options
-   local options = {
-       lsp_fallback = true,
-
-        formatters_by_ft = {
-            lua = { "stylua" },
-
-            javascript = { "prettier" },
-            css = { "prettier" },
-            html = { "prettier" },
-
-            sh = { "shfmt" },
-
-            cpp = { "clang_format" },
-     },
-
-       -- adding same formatter for multiple filetypes can look too much work for some
-      -- instead of the above code you could just use a loop! the config is just a table after all!
-   
-      -- format_on_save = {
-      -- These options will be passed to conform.format()
-      --    timeout_ms = 500,
-      --    lsp_fallback = true,
-      -- },
-      formatters = {
-        clang_format = {
-          command = "clang-format",
-          prepend_args = { "--style=WebKit" },
-        },
-      },
-      }
-
-      require("conform").setup(options)
-      ```
-5. Install the font, taking `SauceCodeProNerdFont-Regular` as an example, and change the terminal font. (Otherwise some pictures will be garbled)
+   format_on_save = { enabled = false }
+   ```
+7. Install the font, taking `SauceCodeProNerdFont-Regular` as an example, and change the terminal font. (Otherwise some pictures will be garbled)
