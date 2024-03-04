@@ -92,8 +92,34 @@
     ```
     ```yaml
     CompileFlags:
-      Add: [-Wunused-variable]
+      Add: [-xc++, -std=c++17, -Wall, -Wno-missing-prototypes]
+
+    Diagnostics:
+      ClangTidy:
+        Add: [performance*, modernize*, readability*]
+        Remove: 
+          [ 
+            modernize-use-trailing-return-type, 
+            readability-braces-around-statements,
+            readability-redundant-control-flow,
+            readability-identifier-length 
+          ]
+        CheckOptions:
+          readability-identifier-naming.VariableCase: camel_Snake_Back
     ```
+    > [!Add smart parsing code]
+    > In the CMake generated project, enable CMAKE_EXPORT_COMPILE_COMMANDS
+    > - command
+    >   ```bash
+    >   -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+    >   ```
+    > or
+    > - CMake
+    >   ```cmake
+    >   set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+    >   ```
+
+
 5. Set clang-format settings
    ```bash
    nvim ~/.clang-format
@@ -119,7 +145,26 @@
    maps.n["<leader>mng"] = { "<cmd> Neotree show git_status <cr>", desc = "Show neotree git status"}
    ```
 
-8. Install the font, taking `SauceCodeProNerdFont-Regular` as an example, and change the terminal font. (Otherwise some pictures will be garbled)
+8. Change theme
+   ```bash
+   nvim ~/.config/nvim/lua/plugins/vscode.lua
+   ```
+   ```lua
+   return {
+        'Mofiqul/vscode.nvim',
+        name = 'vscode',
+        opts = {
+            style = 'dark'
+        },
+    }
+   ```
+   ```bash
+   nvim ~/.config/nvim/lua/astronvim/bootstrap.lua
+   ```
+   ```lua
+   astronvim.default_colorscheme = astronvim.user_opts("colorscheme", "vscode", false)
+   ```
+9. Install the font, taking `SauceCodeProNerdFont-Regular` as an example, and change the terminal font. (Otherwise some pictures will be garbled)
 
 ---
 
