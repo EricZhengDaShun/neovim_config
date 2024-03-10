@@ -78,7 +78,7 @@
    ```
    :TSInstall cmake
    ```
-1. Set basic settings
+3. Set basic settings
    ```bash
    nvim ~/.config/nvim/lua/astronvim/options.lua
    ```
@@ -213,7 +213,7 @@
    ```
    :TSInstall cmake
    ```
-1. Set basic settings
+3. Set basic settings
    ```
    nvim C:\Users\$USER_NAME\AppData\Local\nvim\lua\astronvim\options.lua
    ```
@@ -222,12 +222,28 @@
    tabstop = 4
    ```
 4. Set clangd settings 
-   ```b
+   ```bash
     C:\Users\$USER_NAME\.config\clangd\config.yaml
     ```
     ```yaml
+       C:\Users\$USER_NAME\AppData\Local\clangd\config.yaml
+    ```
+    ```yaml
     CompileFlags:
-      Add: [-Wunused-variable]
+      Add: [-xc++, -std=c++17, -Wall, -Wno-missing-prototypes]
+
+    Diagnostics:
+      ClangTidy:
+        Add: [performance*, modernize*, readability*]
+        Remove:
+          [
+            modernize-use-trailing-return-type,
+            readability-braces-around-statements,
+            readability-redundant-control-flow,
+            readability-identifier-length
+          ]
+        CheckOptions:
+          readability-identifier-naming.VariableCase: camel_Snake_Back
     ```
 5. Set clang-format settings
    ```
@@ -243,4 +259,24 @@
    ```lua
    format_on_save = { enabled = false }
    ```
-7. Install the font, taking `SauceCodeProNerdFont-Regular` as an example, and change the terminal font. (Otherwise some pictures will be garbled)
+7. Enable DAP
+   ```bash
+   nvim C:/Users/$USER_NAME/AppData/Local/nvim/lua/plugins/dap.lua
+   ```
+   ```yaml
+   enabled = vim.fn.has "win32" == 0,
+   -- replace
+   enable = true,
+   ```
+8. Use Mason install codelldb
+9.
+   ```bash
+   nvim C:/Users/$USER_NAME/AppData/Local/nvim/lua/astronvim/mappings.lua
+   ```
+   ```lua
+   -- Custom Neotree
+   maps.n["<leader>mnf"] = { "<cmd> Neotree <cr>", desc = "Show neotree files"}
+   maps.n["<leader>mnb"] = { "<cmd> Neotree show buffers <cr>", desc = "Show neotree buffers"}
+   maps.n["<leader>mng"] = { "<cmd> Neotree show git_status <cr>", desc = "Show neotree git status"}
+   ```
+10. Install the font, taking `SauceCodeProNerdFont-Regular` as an example, and change the terminal font. (Otherwise some pictures will be garbled)
